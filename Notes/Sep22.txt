@@ -1,0 +1,36 @@
+%this is a commnet
+%Files == databases
+
+
+% isInterger of arity 1
+% is Integer/1 procedure
+isInteger(1). %fact
+isInteger(2).
+isInteger(3).
+
+commands to run prolog
+to run prolog you need an egine like swi-pl
+swipl -s intro.pl
+
+swipl -qs intro.pl
+
+
+isInteger(1).
+
+closed-world hypothesis: all truth is in this file. 
+everything else is false 
+
+
+isFloat(3.14).
+isFloat(2.2). 
+
+%atom: alice, bob; basilcally a string
+isName(alice).
+isName(bob).
+to use white space you need to add ' ' 
+isName('alice foo').
+
+to name variable you need to start Capital letter so 
+isOne(Foo). then Foo = 1. 
+but if yo do 
+isOne(foo) then returns false.
