@@ -1,0 +1,156 @@
+%joahuaguzman@joahuas-MacBook-Pro-9 prolog % ls
+8_exercises.pl          9_exercises (1).pl      AST.pl                  factorial.pl            fib.pl
+joahuaguzman@joahuas-MacBook-Pro-9 prolog % swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 9.2.9)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- consult('AST.pl').
+true.
+
+?- eval(2,3).
+false.
+
+?- consult('AST.pl').
+true.
+
+?- eval(add(5,7),Result).
+false.
+
+?- eval(add(number(5), number(2)), Result).
+Result = 7.
+
+?- eval(minus(number(5), number(2)), Result).
+Result = 3.
+
+?- eval(mult(number(5), number(2)), Result).
+Result = 10.
+
+?- halt.
+joahuaguzman@joahuas-MacBook-Pro-9 prolog % cd ..    
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % git add .
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   prolog/AST.pl
+        new file:   prolog/assigment4/boolean_evaluator.pl
+        new file:   prolog/assigment4/sat_solver.pl
+
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % git commit -m "hw assigments 3,4"
+[main 19cdad1] hw assigments 3,4
+ 3 files changed, 261 insertions(+), 1 deletion(-)
+ create mode 100644 prolog/assigment4/boolean_evaluator.pl
+ create mode 100644 prolog/assigment4/sat_solver.pl
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % git push
+fatal: unable to access 'https://github.com/JoshuaN0930/comp410.git/': Could not resolve host: github.com
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % git push origin main
+fatal: unable to access 'https://github.com/JoshuaN0930/comp410.git/': Could not resolve host: github.com
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % git push -u origin main
+fatal: unable to access 'https://github.com/JoshuaN0930/comp410.git/': Could not resolve host: github.com
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % git log
+commit 19cdad162ae7f8c778191a34f67827d993c02030 (HEAD -> main)
+Author: JoshuaN0930 <joshua.guzman.7@my.csun.edu>
+Date:   Wed Oct 29 18:01:26 2025 -0700
+
+    hw assigments 3,4
+
+commit 735278d26f3365acaf37f0641ca0afbefff32a14 (origin/main)
+Author: JoshuaN0930 <joshua.guzman.7@my.csun.edu>
+Date:   Wed Oct 29 15:11:26 2025 -0700
+
+    notes and in class code
+
+commit 73a0d714e44b642a5775ec20d521e2cc031d6601
+Author: joshuaG <joshua.guzman.7@my.csun.edu>
+Date:   Sun Oct 26 02:23:08 2025 -0700
+
+    recursion example
+
+commit 5df94fc0f483a5df6d2b35b3f2bc76af5ef2ffeb
+Author: joshuaG <joshua.guzman.7@my.csun.edu>
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % 
+ *  History restored 
+
+joahuaguzman@joahuas-MacBook-Pro-9 Comp 410 % swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 9.2.9)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [1,2,3] = [Head | Tail].
+Head = 1,
+Tail = [2, 3].
+
+?- [1,2,3] = [Head1, Head2, Head3 | Tail].
+Head1 = 1,
+Head2 = 2,
+Head3 = 3,
+Tail = [].
+
+?- [[foo, bar, baz], 1, 2,3] = [[A | B], Head2 | Tail].
+A = foo,
+B = [bar, baz],
+Head2 = 1,
+Tail = [2, 3].
+
+?- Atoms = [foo, bar, baz] , WholeList = [Atoms, 1,2 ,3], ExtractAtoms = [A | B], WholeList=[ExtractAtoms, Head2 | Tail].
+Atoms = ExtractAtoms, ExtractAtoms = [foo, bar, baz],
+WholeList = [[foo, bar, baz], 1, 2, 3],
+A = foo,
+B = [bar, baz],
+Head2 = 1,
+Tail = [2, 3].
+
+?- flatten([1, [2,3], [4, [5, [6, 7], 8]]], List).
+List = [1, 2, 3, 4, 5, 6, 7, 8].
+
+?- List [1,2,3,4,5], List = X.
+ERROR: Syntax error: Operator expected
+ERROR: List
+ERROR: ** here **
+ERROR:  [1,2,3,4,5], List = X . 
+?- List = [1,2,3,4,5], List = X.
+List = X, X = [1, 2, 3, 4, 5].
+
+?- List = [1,2,3,4,5], List = X, [H, | T].
+ERROR: Syntax error: Operand expected, unquoted comma or bar found
+ERROR: List = [1,2,3,4,5], List = X, [H,
+ERROR: ** here **
+ERROR:  | T] . 
+?- List = [1,2,3,4,5].
+List = [1, 2, 3, 4, 5].
+
+?- List = [1,2,3,4,5], [H | T].
+ERROR: Arguments are not sufficiently instantiated
+ERROR: In:
+ERROR:   [18] throw(error(instantiation_error,_226))
+ERROR:   [12] '<meta-call>'('<garbage_collected>') <foreign>
+ERROR:   [11] toplevel_call('<garbage_collected>') at /Applications/SWI-Prolog/SWI-Prolog.app/Contents/swipl/boot/toplevel.pl:1317
+ERROR: 
+ERROR: Note: some frames are missing due to last-call optimization.
+ERROR: Re-run your program in debug mode (:- debug.) to get more detail.
+?- List = [1,2,3,4,5], List = [H | T].
+List = [1, 2, 3, 4, 5],
+H = 1,
+T = [2, 3, 4, 5].
+
+?- List = [1,2,3,4,5], List = [H1, H2 | T].
+List = [1, 2, 3, 4, 5],
+H1 = 1,
+H2 = 2,
+T = [3, 4, 5].
+
+?- List = [1,2,3,4,5], List = [A, B | _].
+List = [1, 2, 3, 4, 5],
+A = 1,
+B = 2.
+
+?- 
