@@ -24,6 +24,7 @@
 % e ∈ Expression ::= true | false | and(e1, e2) | or(e1, e2)
 
 % ---Code---
+
 %
 
 % and
@@ -50,7 +51,18 @@ or(_, true, true).
 or(true, _, true).
 or(false, false, false).
 
-% eval
+eval(true, true).
+eval(false, false).
+
+eval(and(E1, E2),  Result) :-
+    eval(E1, V1),
+    eval(E2, V2),
+    and(V1, V2, Result).
+
+eval(or(E1, E2), Result) :-
+    eval(E1, V1),
+    eval(E2, V2),
+    or(V1, V2, Result).
 %
 % Takes the following:
 % 1.) A Boolean expression, using the representation previously described

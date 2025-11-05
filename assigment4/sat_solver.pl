@@ -28,9 +28,23 @@
 % e ∈ Expression ::= lit(x, k) | and(e1, e2) | or(e1, e2)
 
 % ---Code---
-% ?- x ^ not Y -> isTrue(and(lit(X,positive), lit(Y, negative))).
+%
 
 % isTrue
+isTrue(lit(X,positive)) :- 
+    X = true.
+isTrue(lit(X,negative)) :- 
+    X = false.
+
+isTrue(and(E1,E2)) :-
+    isTrue(E1), 
+    isTrue(E2).
+
+isTrue(or(E1, _)) :-
+    isTrue(E1).
+
+isTrue(or(_, E2)) :-
+    isTrue(E2).
 %
 % Takes the following:
 % 1.) A Boolean expression, according to the AST definition above.
